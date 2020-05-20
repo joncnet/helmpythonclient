@@ -32,6 +32,9 @@ class HelmPythonClient:
         if 'wait' in kwargs and kwargs['wait']:
             final_command.append('--wait')
 
+        if 'create_namespace' in kwargs and kwargs['create_namespace']:
+            final_command.append('--create-namespace')
+
         raise_ex_on_err = self.raise_ex_on_err
         if 'raise_ex_on_err' in kwargs:
             raise_ex_on_err = kwargs['raise_ex_on_err']
@@ -65,6 +68,11 @@ class HelmPythonClient:
                 data = result.stdout.decode('utf-8')
 
         return data, err
+
+    def version(self, **kwargs):
+
+        command = [self.helm, 'version']
+        return self._run_command(command, **kwargs)
 
     def search(self, keyword, **kwargs):
 
@@ -151,7 +159,8 @@ class HelmPythonClient:
 
         command = [self.helm, 'repo', 'add', name, url]
         if username is not None and password is not None:
-            command = command + ['--username', username, '--password', password]
+            command = command + ['--username', username,
+                                 '--password', password]
         return self._run_command(command, **kwargs)
 
     def repo_remove(self, name, **kwargs):
