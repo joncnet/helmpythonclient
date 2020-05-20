@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'helmpythonclient',
   packages = ['helmpythonclient'],
-  version = '1.0',
+  version = 'v1.0',
   license= 'MIT',
   description = 'An Helm 3 Python client',
   author = 'Giovanni Baggio',
